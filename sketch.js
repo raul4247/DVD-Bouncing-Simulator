@@ -10,10 +10,8 @@ function preload() {
 function setup() {
     canvasWidth = 800
     canvasHeight = 600
-    logoWidth = 80
-    logoHeight = 35
-    x = 500
-    y = 200
+    x = random(canvasWidth)
+    y = random(canvasHeight)
     xspeed = 5
     yspeed = 5
 
@@ -32,18 +30,20 @@ function moveLogo(){
     x += xspeed
     y += yspeed
 
-    if(x >= canvasWidth-dvd.width)
+    if(x >= canvasWidth-dvd.width){
         xspeed = -xspeed
-    if(y >= canvasHeight-dvd.height)
-        yspeed = -yspeed
-    if(x <= 0)
+        x = canvasWidth-dvd.width
+    }
+    else if(x <= 0){
         xspeed = -xspeed
-    if(y <= 0)
+        x = 0
+    }
+    if(y >= canvasHeight-dvd.height){
         yspeed = -yspeed
-    
-    if( (x == 0 && y == 0)||
-        (x == 0 && y == canvasHeight-logoHeight)||
-        (x == canvasWidth-logoWidth && y == 0)||
-        (x == canvasWidth-logoWidth && y == canvasHeight-logoHeight) )
-        console.log('yes')
+        y = canvasHeight-dvd.height
+    }
+    else if(y <= 0){
+        yspeed = -yspeed
+        y = 0
+    }
 }
