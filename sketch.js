@@ -5,16 +5,25 @@ let xspeed, yspeed
 let dvd
 let r, g, b
 
+let slider
+
 function preload() {
     dvd = loadImage('imgs/dvd.png')
 }
 
 function setup() {
     createCanvas(canvasWidth, canvasHeight)
-    resetSketch()
+
+    label = createDiv('XY Axis Speed');
+    slider = createSlider(1, 24, 5, 1)
+    slider.parent(label);
 
     let buttonReset = createButton("reset")
     buttonReset.mousePressed(resetSketch)
+
+    createDiv('*Reset to see speed changes');
+
+    resetSketch()
 }
 
 function draw(){
@@ -22,6 +31,8 @@ function draw(){
 
     tint(r, g, b)
     image(dvd, x, y)
+
+    
     moveLogo()
 }
 
@@ -60,8 +71,9 @@ function changeColor() {
 function resetSketch() {
     x = random(canvasWidth)
     y = random(canvasHeight)
-    xspeed = 5
-    yspeed = 5
+
+    xspeed = slider.value()
+    yspeed = slider.value()
 
     r = random(100, 256)
     g = random(100, 256)
