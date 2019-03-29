@@ -1,4 +1,5 @@
-let canvasWidth, canvasHeight
+let canvasWidth = 800
+let canvasHeight = 600
 let x, y
 let xspeed, yspeed
 let dvd
@@ -9,18 +10,11 @@ function preload() {
 }
 
 function setup() {
-    canvasWidth = 800
-    canvasHeight = 600
-    x = random(canvasWidth)
-    y = random(canvasHeight)
-    xspeed = 5
-    yspeed = 5
+    createCanvas(canvasWidth, canvasHeight)
+    resetSketch()
 
-    r = random(100, 256)
-    g = random(100, 256)
-    b = random(100, 256)
-    
-    createCanvas(canvasWidth, canvasHeight)    
+    let buttonReset = createButton("reset")
+    buttonReset.mousePressed(resetSketch)
 }
 
 function draw(){
@@ -58,6 +52,17 @@ function moveLogo(){
 }
 
 function changeColor() {
+    r = random(100, 256)
+    g = random(100, 256)
+    b = random(100, 256)
+}
+
+function resetSketch() {
+    x = random(canvasWidth)
+    y = random(canvasHeight)
+    xspeed = 5
+    yspeed = 5
+
     r = random(100, 256)
     g = random(100, 256)
     b = random(100, 256)
