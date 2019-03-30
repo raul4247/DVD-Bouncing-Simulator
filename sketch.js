@@ -6,6 +6,9 @@ let dvd
 let r, g, b
 
 let slider
+let cornerHitText, hitText
+
+let cornerHit, hit
 
 function preload() {
     dvd = loadImage('imgs/dvd.png')
@@ -14,14 +17,17 @@ function preload() {
 function setup() {
     createCanvas(canvasWidth, canvasHeight)
 
-    label = createDiv('XY Axis Speed');
+    label = createDiv('XY Axis Speed')
     slider = createSlider(1, 24, 5, 1)
-    slider.parent(label);
+    slider.parent(label)
 
     let buttonReset = createButton("reset")
     buttonReset.mousePressed(resetSketch)
 
-    createDiv('*Reset to see speed changes');
+    createDiv('*Reset to see speed changes')
+
+    hitText = createDiv('Hits: 0') 
+    cornerHitText = createDiv('Corners: 0' )
 
     resetSketch()
 }
@@ -31,8 +37,6 @@ function draw(){
 
     tint(r, g, b)
     image(dvd, x, y)
-
-    
     moveLogo()
 }
 
@@ -44,28 +48,37 @@ function moveLogo(){
         xspeed = -xspeed
         x = canvasWidth-dvd.width
         changeColor()
+        hitCount()
     }
     else if(x <= 0){
         xspeed = -xspeed
         x = 0
         changeColor()
+        hitCount()
     }
     if(y >= canvasHeight-dvd.height){
         yspeed = -yspeed
         y = canvasHeight-dvd.height
         changeColor()
+        hitCount()
     }
     else if(y <= 0){
         yspeed = -yspeed
         y = 0
         changeColor()
+        hitCount()
     }
+    if( (x == 0 && y == 0)||
+    (x == 0 && y == canvasHeight-dvd.height)||
+    (x == canvasWidth-dvd.width && y == 0)||
+    (x == canvasWidth-dvd.width && y == canvasHeight-dvd.height) )
+        cornerCount()
 }
 
 function changeColor() {
-    r = random(100, 256)
-    g = random(100, 256)
-    b = random(100, 256)
+    r = random(0, 256)
+    g = random(0, 256)
+    b = random(0, 256)
 }
 
 function resetSketch() {
@@ -75,7 +88,22 @@ function resetSketch() {
     xspeed = slider.value()
     yspeed = slider.value()
 
-    r = random(100, 256)
-    g = random(100, 256)
-    b = random(100, 256)
+    r = random(0, 256)
+    g = random(0, 256)
+    b = random(0, 256)
+
+    hit = 0
+    hitText.html('Hits: ' + hit)
+    cornerHit = 0
+    cornerHitText.html('Corners: ' + cornerHit)
+}
+
+function hitCount() {
+    hit += 1
+    hitText.html('Hits: ' + hit)
+}
+
+function cornerCount() {
+    cornerHit += 1
+    cornerHitText.html('Corners: ' + cornerHit)
 }
